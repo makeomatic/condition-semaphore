@@ -60,5 +60,6 @@
       "post-checkout": [],
       "post-merge": []
     }
-  }
+  },
+  "version": "1.0.0"
 }
