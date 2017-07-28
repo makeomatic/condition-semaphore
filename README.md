@@ -7,6 +7,5 @@
 [![Dependency Status](https://david-dm.org/makeomatic/condition-semaphore/master.svg)](https://david-dm.org/makeomatic/condition-semaphore/master)
 [![devDependency Status](https://david-dm.org/makeomatic/condition-semaphore/master/dev-status.svg)](https://david-dm.org/makeomatic/condition-semaphore/master#info=devDependencies)
 
-[![Join the chat at https://gitter.im/makeomatic/makeomatic](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/makeomatic/makeomatic?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![makeomatic](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/makeomatic/makeomatic)
+[![makeomatic](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
