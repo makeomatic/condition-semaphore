@@ -1,5 +1,7 @@
 # semantic-release condition-semaphore
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/makeomatic/condition-semaphore.svg)](https://greenkeeper.io/)
+
 [![npm version](https://badge.fury.io/js/%40makeomatic%2Fcondition-semaphore.svg)](http://badge.fury.io/js/%40makeomatic%2Fcondition-semaphore)
 [![Coverage Status](https://coveralls.io/repos/makeomatic/condition-semaphore/badge.svg?branch=master&service=github)](https://coveralls.io/github/makeomatic/condition-semaphore?branch=master)
 
