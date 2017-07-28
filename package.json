@@ -1,0 +1,52 @@
+{
+  "name": "@makeomatic/condition-semaphore",
+  "description": "make sure only the right builds on semaphore get to publish",
+  "author": "Vitaly Aminev <v@makeomatic.ca> (https://makeomatic.ca)",
+  "bugs": {
+    "url": "https://github.com/makeomatic/condition-semaphore/issues"
+  },
+  "dependencies": {
+    "@semantic-release/error": "^1.0.0",
+    "semver": "^5.1.0"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.2",
+    "github-post-release": "^1.12.1",
+    "nyc": "^11.0.3",
+    "semantic-release": "^6.0.3",
+    "simple-commit-message": "^3.3.1",
+    "standard": "^10.0.2",
+    "tap": "^10.7.0"
+  },
+  "files": [
+    "index.js"
+  ],
+  "homepage": "https://github.com/makeomatic/condition-semaphore#readme",
+  "keywords": [
+    "publish",
+    "release",
+    "semantic-release",
+    "semaphore"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "release": {
+    "branch": "master",
+    "verifyConditions": "./index.js",
+    "analyzeCommits": "simple-commit-message",
+    "generateNotes": "github-post-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/makeomatic/condition-semaphore.git"
+  },
+  "scripts": {
+    "coverage": "nyc report",
+    "coverage:upload": "npm run -s coverage -- --reporter=text-lcov | coveralls",
+    "pretest": "standard",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "test": "nyc tap --no-cov test.js"
+  }
+}
