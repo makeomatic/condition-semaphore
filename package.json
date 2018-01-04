@@ -35,7 +35,7 @@
   },
   "release": {
     "branch": "master",
-    "verifyConditions": ["@semantic-release/npm", "@semantic-release/github", "./"],
+    "verifyConditions": ["@semantic-release/npm", "@semantic-release/github"],
     "analyzeCommits": "simple-commit-message",
     "generateNotes": {
       "config": "simple-commit-message"

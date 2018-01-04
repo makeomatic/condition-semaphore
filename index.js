@@ -4,7 +4,7 @@
 const semver = require('semver')
 const SemanticReleaseError = require('@semantic-release/error')
 
-module.exports = async function (pluginConfig = {}, config = {}) {
+async function verifyConditions (pluginConfig = {}, config = {}) {
   const { env } = process
   const { options = {} } = config
 
@@ -41,3 +41,5 @@ module.exports = async function (pluginConfig = {}, config = {}) {
     'EBRANCHMISMATCH'
   )
 }
+
+module.exports = { verifyConditions }

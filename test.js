@@ -1,6 +1,6 @@
 import test from 'ava'
 import SemanticReleaseError from '@semantic-release/error'
-import condition from './'
+import { verifyConditions as condition } from './'
 
 const envBackup = Object.assign({}, process.env)
 
