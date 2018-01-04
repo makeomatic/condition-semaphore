@@ -1,86 +1,64 @@
-var test = require('tap').test
-var SRError = require('@semantic-release/error')
+import test from 'ava'
+import SemanticReleaseError from '@semantic-release/error'
+import condition from './'
 
-var condition = require('./')
+const envBackup = Object.assign({}, process.env)
 
-test('raise errors in semaphore environment', function (t) {
-  t.test('only runs on semaphore', function (tt) {
-    tt.plan(2)
+test.beforeEach(() => {
+  // Delete env variables in case they are on the machine running the tests
+  delete process.env.SEMAPHORE
+  delete process.env.PULL_REQUEST_NUMBER
+  delete process.env.BRANCH_NAME
+})
 
-    condition({}, {env: {}}, function (err) {
-      tt.ok(err instanceof SRError)
-      tt.is(err.code, 'ENOSEMAPHORE')
-    })
-  })
+test.afterEach.always(() => {
+  // Restore process.env
+  process.env = envBackup
+})
 
-  t.test('not running on pull requests', function (tt) {
-    tt.plan(2)
-    condition({}, {
-      env: {
-        SEMAPHORE: 'true',
-        PULL_REQUEST_NUMBER: '1'
-      }
-    }, function (err) {
-      tt.ok(err instanceof SRError)
-      tt.is(err.code, 'EPULLREQUEST')
-    })
-  })
+test.serial('only runs on semaphore', async (t) => {
+  const err = await t.throws(condition(), SemanticReleaseError)
+  t.is(err.code, 'ENOSEMAPHORE')
+})
 
-  t.test('only running on specified branch', function (tt) {
-    tt.plan(5)
+test.serial('not running on pull requests', async (t) => {
+  process.env.SEMAPHORE = 'true'
+  process.env.PULL_REQUEST_NUMBER = '1'
 
-    condition({}, {
-      env: {
-        SEMAPHORE: 'true',
-        BRANCH_NAME: 'master'
-      },
-      options: {
-        branch: 'master'
-      }
-    }, function (err) {
-      tt.is(err, null)
-    })
+  const err = await t.throws(condition(), SemanticReleaseError)
+  t.is(err.code, 'EPULLREQUEST')
+})
 
-    condition({}, {
-      env: {
-        SEMAPHORE: 'true',
-        BRANCH_NAME: 'notmaster'
-      },
-      options: {
-        branch: 'master'
-      }
-    }, function (err) {
-      tt.ok(err instanceof SRError)
-      tt.is(err.code, 'EBRANCHMISMATCH')
-    })
+test.serial('only running on specified branch', async (t) => {
+  let err
+  process.env.SEMAPHORE = 'true'
+  process.env.BRANCH_NAME = 'master'
 
-    condition({}, {
-      env: {
-        SEMAPHORE: 'true',
-        BRANCH_NAME: 'master'
-      },
-      options: {
-        branch: 'foo'
-      }
-    }, function (err) {
-      tt.ok(err instanceof SRError)
-      tt.is(err.code, 'EBRANCHMISMATCH')
-    })
-  })
+  await condition({}, { options: { branch: 'master' } })
 
-  t.test('not running on tags', function (tt) {
-    tt.plan(2)
-    condition({}, {
-      env: {
-        SEMAPHORE: 'true',
-        BRANCH_NAME: 'v1.0.0'
-      },
-      options: {}
-    }, function (err) {
-      tt.ok(err instanceof SRError)
-      tt.is(err.code, 'EGITTAG')
-    })
-  })
+  process.env.BRANCH_NAME = 'notmaster'
 
-  t.end()
+  err = await t.throws(
+    condition({}, { options: { branch: 'master' } }),
+    SemanticReleaseError
+  )
+
+  t.is(err.code, 'EBRANCHMISMATCH')
+
+  process.env.BRANCH_NAME = 'master'
+
+  err = await t.throws(
+    condition({}, { options: { branch: 'notmaster' } }),
+    SemanticReleaseError
+  )
+
+  t.is(err.code, 'EBRANCHMISMATCH')
+})
+
+test.serial('not running on tags', async (t) => {
+  process.env.SEMAPHORE = 'true'
+  process.env.BRANCH_NAME = 'v1.0.0'
+
+  const err = await t.throws(condition(), SemanticReleaseError)
+  t.is(err.code, 'EGITTAG')
 })
