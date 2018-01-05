@@ -4366,22 +4366,6 @@ simple-commit-message@3.3.2:
     semver "5.4.1"
     word-wrap "1.2.3"
 
-simple-commit-message@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/simple-commit-message/-/simple-commit-message-4.0.0.tgz#de412606fd8b938e791d5512dc6ebdcb3cae456a"
-  dependencies:
-    am-i-a-dependency "1.1.2"
-    check-more-types "2.24.0"
-    debug "3.1.0"
-    ggit "2.4.2"
-    hr "0.1.3"
-    inquirer "0.12.0"
-    inquirer-confirm "0.2.2"
-    largest-semantic-change "1.0.0"
-    lazy-ass "1.6.0"
-    semver "5.4.1"
-    word-wrap "1.2.3"
-
 slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
